@@ -4,7 +4,7 @@ name: Deploy DAGs to GCS
 on:
   push:
     branches:
-      - main  # ou a branch que você utiliza
+      - master
 
 jobs:
   deploy:
