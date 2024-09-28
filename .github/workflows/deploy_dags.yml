@@ -1,9 +1,10 @@
+# .github/workflows/deploy_dags.yml
 name: Deploy DAGs to GCS
 
 on:
   push:
     branches:
-      - main 
+      - main  # ou a branch que você utiliza
 
 jobs:
   deploy:
@@ -18,7 +19,18 @@ jobs:
       with:
         service_account_key: ${{ secrets.GCP_SA_KEY }}
         project_id: liti-case-analytics-engineer
+        export_default_credentials: true
+
+    - name: Instalar gsutil
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gsutil
 
     - name: Sincronizar DAGs com o GCS
       run: |
         gsutil -m rsync -r ./dags gs://airflow-dags-bucket-liti-case-analytics-engineer/dags
+
+    - name: Limpar cache
+      if: always()
+      run: |
+        gcloud auth revoke --all
