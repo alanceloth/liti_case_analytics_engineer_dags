@@ -15,7 +15,9 @@ from dag_dw_data_modelling.dbt_dw.cosmos_config import DBT_PROJECT_CONFIG, DBT_C
     schedule=None,
     catchup=False,
     tags=['etl', 'dw', 'data_modelling','dbt', 'medallion'],
-    owner='Alan Lanceloth',
+    default_args={
+        'owner': 'Alan Lanceloth'
+    }
 )
 def etl_medallion_architecture():
     bucket_name = 'data-lake-bucket-liti-case-analytics-engineer'
