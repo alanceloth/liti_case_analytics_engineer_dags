@@ -5,31 +5,31 @@ WITH clean_data AS (
         staffId,
         objective AS objectiveId,
         CASE
-        WHEN SAFE_CAST(startDate AS DATETIME) IS NOT NULL
-            AND SAFE_CAST(startDate AS DATETIME) <= CURRENT_DATETIME()
-            AND SAFE_CAST(startDate AS DATE) >= DATE '2021-05-13'
-        THEN SAFE_CAST(startDate AS DATETIME)
+        WHEN SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME) IS NOT NULL
+            AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
+            AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATE) >= DATE '2021-05-13'
+        THEN SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME)
         ELSE NULL
-        END AS startDate,
+        END AS REPLACE(startDate, ' UTC', ''),
         CASE
-        WHEN SAFE_CAST(createdAt AS DATETIME) IS NOT NULL
-            AND SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME()
-            AND SAFE_CAST(createdAt AS DATE) >= DATE '2021-05-13'
-        THEN SAFE_CAST(createdAt AS DATETIME)
+        WHEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) IS NOT NULL
+            AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
+            AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
+        THEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME)
         ELSE NULL
-        END AS createdAt,
+        END AS REPLACE(createdAt, ' UTC', ''),
         CASE
-        WHEN SAFE_CAST(updatedAt AS DATETIME) IS NOT NULL
-            AND SAFE_CAST(updatedAt AS DATETIME) <= CURRENT_DATETIME()
-            AND SAFE_CAST(updatedAt AS DATE) >= DATE '2021-05-13'
-        THEN SAFE_CAST(updatedAt AS DATETIME)
+        WHEN SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATETIME) IS NOT NULL
+            AND SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
+            AND SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
+        THEN SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATETIME)
         ELSE NULL
-        END AS updatedAt
+        END AS REPLACE(updatedAt, ' UTC', '')
     FROM {{ ref('bronze_customer_objectives') }}
     WHERE 
         _id IS NOT NULL
         AND customerId IS NOT NULL
-        AND SAFE_CAST(startDate AS DATETIME) <= CURRENT_DATETIME() 
+        AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME() 
 )
 
 SELECT * FROM clean_data

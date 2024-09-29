@@ -21,17 +21,17 @@ WITH clean_data AS (
       WHEN dosages_7_ = 'N/A' THEN NULL ELSE dosages_7_ END AS dosage_7,
     label,
     CASE
-      WHEN SAFE_CAST(deletedAt AS DATETIME) IS NOT NULL
-           AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME()
-           AND SAFE_CAST(deletedAt AS DATE) >= DATE '2021-05-13'
-      THEN SAFE_CAST(deletedAt AS DATETIME)
+      WHEN SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATETIME) IS NOT NULL
+           AND SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
+           AND SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
+      THEN SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATETIME)
       ELSE NULL
-    END AS deletedAt
+    END AS REPLACE(deletedAt, ' UTC', '')
   FROM {{ ref('bronze_medicines') }}
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL
-    AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME() 
+    AND SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME() 
 )
 
 SELECT * FROM clean_data

@@ -75,12 +75,12 @@ WITH clean_data AS (
     
     -- Validação de customerCreatedAt (não posterior à data atual e não anterior a 2021-05-13)
     CASE
-      WHEN SAFE_CAST(customerCreatedAt AS DATETIME) IS NOT NULL
-           AND SAFE_CAST(customerCreatedAt AS DATETIME) <= CURRENT_DATETIME()
-           AND SAFE_CAST(customerCreatedAt AS DATE) >= DATE '2021-05-13'
-      THEN SAFE_CAST(customerCreatedAt AS DATETIME)
-      ELSE NULL
-    END AS customerCreatedAt 
+        WHEN SAFE_CAST(REPLACE(customerCreatedAt, ' UTC', '') AS DATETIME) IS NOT NULL
+            AND SAFE_CAST(REPLACE(customerCreatedAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
+            AND SAFE_CAST(REPLACE(customerCreatedAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
+        THEN SAFE_CAST(REPLACE(customerCreatedAt, ' UTC', '') AS DATETIME)
+        ELSE NULL
+    END AS customerCreatedAt
   FROM {{ ref('bronze_customer') }}
   WHERE CustomerId IS NOT NULL
 )
