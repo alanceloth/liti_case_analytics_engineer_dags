@@ -17,7 +17,7 @@ WITH clean_data AS (
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL
-    AND createdAt <= CURRENT_DATETIME() 
+    AND SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME() 
 )
 
 SELECT * FROM clean_data

@@ -31,7 +31,7 @@ WITH clean_data AS (
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL
-    AND (deletedAt IS NULL OR deletedAt <= CURRENT_DATETIME())
+    AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME() 
 )
 
 SELECT * FROM clean_data

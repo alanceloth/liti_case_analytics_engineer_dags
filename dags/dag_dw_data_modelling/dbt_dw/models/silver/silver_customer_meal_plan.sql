@@ -34,7 +34,7 @@ WITH clean_data AS (
   WHERE 
     _id IS NOT NULL
     AND customerId IS NOT NULL
-    AND startDate <= CURRENT_DATETIME() 
+    AND SAFE_CAST(startDate AS DATETIME) <= CURRENT_DATETIME() 
 )
 
 SELECT * FROM clean_data

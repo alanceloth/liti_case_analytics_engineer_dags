@@ -121,6 +121,8 @@ WITH clean_data AS (
         muscleBalanceRightArmEvaluation AS muscleBalanceRightArmEvaluation,
         muscleBalanceRightLegEvaluation AS muscleBalanceRightLegEvaluation
     FROM {{ ref('bronze_weighins') }}
+    WHERE SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME()
+    AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME()
 )
 
 SELECT * FROM clean_data
