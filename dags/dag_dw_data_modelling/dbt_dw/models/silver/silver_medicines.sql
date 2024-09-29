@@ -32,7 +32,7 @@ WITH clean_data AS (
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL
-    AND SAFE_CAST(TIMESTAMP(deletedAt) AS DATETIME) <= CURRENT_DATETIME()
+    AND (deletedAt IS NULL OR deletedAt = '' OR SAFE_CAST(TIMESTAMP(deletedAt) AS DATETIME) <= CURRENT_DATETIME())
 )
 
 SELECT * FROM clean_data
