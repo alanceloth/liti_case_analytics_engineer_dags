@@ -35,11 +35,15 @@ jobs:
       run: |
         gsutil -m rsync -r ./dags gs://airflow-dags-bucket-liti-case-analytics-engineer/dags
 
-    - name: Trigger Airflow DAG
+    - name: Publicar Mensagem no Pub/Sub para Acionar a DAG no Airflow
       run: |
-        curl -X POST https://us-west1-liti-case-analytics-engineer.cloudfunctions.net/trigger_airflow_sync \
-          -H "Content-Type: application/json" \
-          -d '{"message": "Deploy de DAGs realizado"}'
+        TOPIC_NAME="dag-updates-topic"
+        PROJECT_ID="liti-case-analytics-engineer"
+
+        MESSAGE='{"message": "Deploy de DAGs realizado"}'
+
+        # Publica a mensagem no tópico Pub/Sub
+        gcloud pubsub topics publish $TOPIC_NAME --project=$PROJECT_ID --message="$MESSAGE"
 
     - name: Limpar cache
       if: always()
