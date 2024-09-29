@@ -35,6 +35,12 @@ jobs:
       run: |
         gsutil -m rsync -r ./dags gs://airflow-dags-bucket-liti-case-analytics-engineer/dags
 
+    - name: Trigger Airflow DAG
+      run: |
+        curl -X POST https://us-west1-liti-case-analytics-engineer.cloudfunctions.net/trigger_airflow_sync \
+          -H "Content-Type: application/json" \
+          -d '{"message": "Deploy de DAGs realizado"}'
+
     - name: Limpar cache
       if: always()
       run: |
