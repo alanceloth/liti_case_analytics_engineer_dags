@@ -36,7 +36,6 @@ WITH clean_data AS (
         CAST(REPLACE(CAST(weightlb AS STRING), ',', '') AS DECIMAL) AS weightlb,
         CAST(REPLACE(CAST(weightst AS STRING), ',', '') AS DECIMAL) AS weightst,
         CAST(REPLACE(CAST(allBodykg AS STRING), ',', '') AS DECIMAL) AS allBodykg,
-        CAST(REPLACE(CAST(rightLeg AS STRING), ',', '') AS DECIMAL) AS rightLeg,
         CAST(REPLACE(CAST(bodyScore AS STRING), ',', '') AS INTEGER) AS bodyScore,
         CASE
             WHEN SAFE_CAST(createdAt AS DATETIME) IS NOT NULL
