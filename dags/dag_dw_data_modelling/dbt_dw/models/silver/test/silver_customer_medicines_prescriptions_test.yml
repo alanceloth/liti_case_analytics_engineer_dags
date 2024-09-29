@@ -13,13 +13,13 @@ models:
       # Teste de integridade referencial para customerId
       - relationships:
           column_name: customerId
-          to: ref('bronze_customer')
+          to: ref('silver_customer')
           field: CustomerId
 
       # Teste de integridade referencial para medicineId
       - relationships:
           column_name: medicineId
-          to: ref('bronze_medicines')
+          to: ref('silver_medicines')
           field: medicineId
 
       # Validação de descrições que não podem conter valores como 'N/A', 'XXX', 'sad'
