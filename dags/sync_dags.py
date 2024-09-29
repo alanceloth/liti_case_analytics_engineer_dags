@@ -8,6 +8,7 @@ from airflow.providers.google.cloud.hooks.gcs import GCSHook
 from datetime import datetime
 
 def sync_dags():
+    
     # Configurações
     gcs_bucket = 'airflow-dags-bucket-liti-case-analytics-engineer' 
     gcs_prefix = 'dags/'
@@ -30,6 +31,12 @@ def sync_dags():
     for blob in blobs:
         # 'blob' é uma string representando o caminho do objeto no GCS
         file_name = os.path.basename(blob)
+        relative_path = os.path.relpath(blob, gcs_prefix)
+
+        # Ignorar blobs que representam diretórios (terminados com '/')
+        if blob.endswith('/'):
+            logging.info(f"Ignorando diretório: {blob}")
+            continue
 
         # Opcional: Ignorar arquivos de sistema ou outros arquivos específicos
         # Exemplo: Ignorar arquivos que começam com '.', como '.DS_Store'
