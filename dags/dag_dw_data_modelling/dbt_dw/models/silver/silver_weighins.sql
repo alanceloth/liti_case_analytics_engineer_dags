@@ -1,6 +1,6 @@
 WITH clean_data AS (
     SELECT
-        _id AS _id,
+        _id AS wheiginId,
         CAST(REPLACE(CAST(age AS STRING), ',', '') AS INTEGER) AS age,
         CAST(REPLACE(CAST(bmi AS STRING), ',', '') AS DECIMAL) AS bmi,
         CAST(REPLACE(CAST(bmr AS STRING), ',', '') AS DECIMAL) AS bmr,
