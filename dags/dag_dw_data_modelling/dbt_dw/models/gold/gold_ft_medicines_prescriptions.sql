@@ -37,4 +37,4 @@ SELECT
   p.prescription_date
 FROM prescriptions p
 JOIN customer_dim c ON p.customerId = c.CustomerId
-JOIN medicines_dim m ON p.medicineId = m.medicine_id;
+JOIN medicines_dim m ON p.medicineId = m.medicine_id

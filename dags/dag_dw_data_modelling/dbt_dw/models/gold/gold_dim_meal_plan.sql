@@ -3,4 +3,4 @@ SELECT
   name AS meal_plan_name,
   group AS meal_plan_group,
   CAST(createdAt AS DATE) AS created_date
-FROM {{ ref('silver_meal_plans') }};
+FROM {{ ref('silver_meal_plans') }}

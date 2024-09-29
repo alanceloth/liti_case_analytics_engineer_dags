@@ -7,4 +7,4 @@ SELECT
   customerPlan,
   isActive,
   acquiredDate
-FROM {{ ref('silver_customer') }};
+FROM {{ ref('silver_customer') }}

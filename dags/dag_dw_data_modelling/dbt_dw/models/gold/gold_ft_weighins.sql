@@ -25,4 +25,4 @@ SELECT
   w.weighin_date,
   w.weight
 FROM weighins w
-JOIN customer_dim c ON w.customerId = c.CustomerId;
+JOIN customer_dim c ON w.customerId = c.CustomerId
