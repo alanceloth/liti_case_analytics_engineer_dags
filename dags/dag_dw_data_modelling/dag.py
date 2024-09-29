@@ -27,7 +27,7 @@ def etl_medallion_architecture():
     # Tarefa para rodar dbt deps antes das transformações
     dbt_deps = BashOperator(
         task_id='dbt_deps',
-        bash_command=f'cd {DBT_PROJECT_CONFIG["project_dir"]} && dbt deps',
+        bash_command=f'cd {DBT_PROJECT_CONFIG.dbt_project_path} && dbt deps',
         retries=3,
     )
 
