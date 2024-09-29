@@ -5,18 +5,18 @@ WITH clean_data AS (
     staffId,
     mealPlanId,
     CASE
-      WHEN SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME) IS NOT NULL
-           AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
-           AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATE) >= DATE '2021-05-13'
-      THEN SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME)
-      ELSE NULL
+    WHEN SAFE_CAST(TIMESTAMP(startDate) AS DATE) IS NOT NULL
+         AND SAFE_CAST(TIMESTAMP(startDate) AS DATE) <= CURRENT_DATE()
+         AND SAFE_CAST(TIMESTAMP(startDate) AS DATE) >= DATE '2021-05-13'
+    THEN SAFE_CAST(TIMESTAMP(startDate) AS DATE)
+    ELSE NULL
     END AS startDate,
     CASE
-      WHEN SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATETIME) IS NOT NULL
-           AND SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
-           AND SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATE) >= DATE '2021-05-13'
-      THEN SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATETIME)
-      ELSE NULL
+    WHEN SAFE_CAST(TIMESTAMP(endDate) AS DATE) IS NOT NULL
+         AND SAFE_CAST(TIMESTAMP(endDate) AS DATE) <= CURRENT_DATE()
+         AND SAFE_CAST(TIMESTAMP(endDate) AS DATE) >= DATE '2021-05-13'
+    THEN SAFE_CAST(TIMESTAMP(endDate) AS DATE)
+    ELSE NULL
     END AS endDate,
     restrictions_gluten AS glutenRestriction,
     restrictions_lactose AS lactoseRestriction,
@@ -24,17 +24,17 @@ WITH clean_data AS (
     restrictions_ovolacto AS ovolactoRestriction,
     restrictions_highFodMaps AS highFodMapsRestriction,
     CASE
-      WHEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) IS NOT NULL
-           AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
-           AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
-      THEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME)
-      ELSE NULL
+    WHEN SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME) IS NOT NULL
+         AND SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME) <= CURRENT_DATETIME()
+         AND SAFE_CAST(TIMESTAMP(createdAt) AS DATE) >= DATE '2021-05-13'
+    THEN SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME)
+    ELSE NULL
     END AS createdAt
   FROM {{ ref('bronze_customer_meal_plan') }}
   WHERE 
     _id IS NOT NULL
     AND customerId IS NOT NULL
-    AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME() 
+    AND SAFE_CAST(TIMESTAMP(startDate) AS DATE) <= CURRENT_DATE()
 )
 
 SELECT * FROM clean_data
