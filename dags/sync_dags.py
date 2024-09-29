@@ -80,7 +80,7 @@ with DAG(
     dag_id='sync_dags',
     default_args=default_args,
     description='DAG para sincronizar todo o conteúdo do GCS para o Airflow mantendo a estrutura de pastas',
-    schedule_interval='@daily',  # Defina conforme sua necessidade
+    schedule_interval='@hourly',  # Defina conforme sua necessidade
     catchup=False,
 ) as dag:
 
