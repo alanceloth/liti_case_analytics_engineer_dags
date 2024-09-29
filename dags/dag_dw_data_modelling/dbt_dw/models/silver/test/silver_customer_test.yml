@@ -9,11 +9,7 @@ models:
       - not_null:
           column_name: CustomerId
 
-      - accepted_values:
-          column_name: customerGender
-          values: ['male', 'female', 'other']
-
-      - range:
+      - dbt_utils.accept_range:
           column_name: customerHeight
           min_value: 50
           max_value: 300

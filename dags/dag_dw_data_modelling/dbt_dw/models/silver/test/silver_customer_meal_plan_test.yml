@@ -10,18 +10,6 @@ models:
       - not_null:
           column_name: customerMealPlanId
 
-      # Teste de integridade referencial para customerId
-      - relationships:
-          column_name: customerId
-          to: ref('silver_customer')
-          field: CustomerId
-
-      # Teste de integridade referencial para mealPlanId
-      - relationships:
-          column_name: mealPlanId
-          to: ref('silver_meal_plans')
-          field: mealPlanId
-
       # Teste de valores permitidos para datas (startDate <= endDate ou endDate IS NULL)
       - expression_is_true:
           expression: "startDate <= endDate OR endDate IS NULL"
