@@ -3,9 +3,9 @@ WITH clean_data AS (
     _id AS mealPlanId,
     name,
     CASE 
-      WHEN group IN ('Padrão', 'Atleta', 'Vegano', 'Vegetariano', 'Hipertrofia') THEN group 
+      WHEN [group] IN ('Padrão', 'Atleta', 'Vegano', 'Vegetariano', 'Hipertrofia') THEN [group] 
       ELSE NULL 
-    END AS group,
+    END AS [group],
     CASE
       WHEN SAFE_CAST(createdAt AS DATETIME) IS NOT NULL
            AND SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME()
