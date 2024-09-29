@@ -6,7 +6,13 @@ WITH clean_data AS (
       WHEN group IN ('Padrão', 'Atleta', 'Vegano', 'Vegetariano', 'Hipertrofia') THEN group 
       ELSE NULL 
     END AS group,
-    CAST(createdAt AS DATETIME) AS createdAt
+    CASE
+      WHEN SAFE_CAST(createdAt AS DATETIME) IS NOT NULL
+           AND SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME()
+           AND SAFE_CAST(createdAt AS DATE) >= DATE '2021-05-13'
+      THEN SAFE_CAST(createdAt AS DATETIME)
+      ELSE NULL
+    END AS createdAt
   FROM {{ ref('bronze_meal_plans') }}
   WHERE 
     _id IS NOT NULL
