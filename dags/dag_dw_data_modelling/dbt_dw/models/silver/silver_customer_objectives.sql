@@ -10,21 +10,21 @@ WITH clean_data AS (
             AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATE) >= DATE '2021-05-13'
         THEN SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME)
         ELSE NULL
-        END AS REPLACE(startDate, ' UTC', ''),
+        END AS startDate,
         CASE
         WHEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) IS NOT NULL
             AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
             AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
         THEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME)
         ELSE NULL
-        END AS REPLACE(createdAt, ' UTC', ''),
+        END AS createdAt,
         CASE
         WHEN SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATETIME) IS NOT NULL
             AND SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
             AND SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
         THEN SAFE_CAST(REPLACE(updatedAt, ' UTC', '') AS DATETIME)
         ELSE NULL
-        END AS REPLACE(updatedAt, ' UTC', '')
+        END AS updatedAt
     FROM {{ ref('bronze_customer_objectives') }}
     WHERE 
         _id IS NOT NULL

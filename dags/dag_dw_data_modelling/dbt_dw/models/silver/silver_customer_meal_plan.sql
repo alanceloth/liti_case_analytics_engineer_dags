@@ -10,14 +10,14 @@ WITH clean_data AS (
            AND SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATE) >= DATE '2021-05-13'
       THEN SAFE_CAST(REPLACE(startDate, ' UTC', '') AS DATETIME)
       ELSE NULL
-    END AS REPLACE(startDate, ' UTC', ''),
+    END AS startDate,
     CASE
       WHEN SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATETIME) IS NOT NULL
            AND SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
            AND SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATE) >= DATE '2021-05-13'
       THEN SAFE_CAST(REPLACE(endDate, ' UTC', '') AS DATETIME)
       ELSE NULL
-    END AS REPLACE(endDate, ' UTC', ''),
+    END AS endDate,
     restrictions_gluten AS glutenRestriction,
     restrictions_lactose AS lactoseRestriction,
     restrictions_vegan AS veganRestriction,
@@ -29,7 +29,7 @@ WITH clean_data AS (
            AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
       THEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME)
       ELSE NULL
-    END AS REPLACE(createdAt, ' UTC', '')
+    END AS createdAt
   FROM {{ ref('bronze_customer_meal_plan') }}
   WHERE 
     _id IS NOT NULL

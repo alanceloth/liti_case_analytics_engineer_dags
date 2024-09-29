@@ -3,16 +3,16 @@ WITH clean_data AS (
     _id AS mealPlanId,
     name,
     CASE 
-      WHEN [group] IN ('Padrão', 'Atleta', 'Vegano', 'Vegetariano', 'Hipertrofia') THEN [group] 
+      WHEN `group` IN ('Padrão', 'Atleta', 'Vegano', 'Vegetariano', 'Hipertrofia') THEN `group`
       ELSE NULL 
-    END AS [group],
+    END AS `group`,
     CASE
       WHEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) IS NOT NULL
            AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME) <= CURRENT_DATETIME()
            AND SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
       THEN SAFE_CAST(REPLACE(createdAt, ' UTC', '') AS DATETIME)
       ELSE NULL
-    END AS REPLACE(createdAt, ' UTC', '')
+    END AS createdAt
 
     
   FROM {{ ref('bronze_meal_plans') }}

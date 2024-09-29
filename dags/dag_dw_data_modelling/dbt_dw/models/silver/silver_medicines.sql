@@ -26,7 +26,7 @@ WITH clean_data AS (
            AND SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATE) >= DATE '2021-05-13'
       THEN SAFE_CAST(REPLACE(deletedAt, ' UTC', '') AS DATETIME)
       ELSE NULL
-    END AS REPLACE(deletedAt, ' UTC', '')
+    END AS deletedAt
   FROM {{ ref('bronze_medicines') }}
   WHERE 
     _id IS NOT NULL

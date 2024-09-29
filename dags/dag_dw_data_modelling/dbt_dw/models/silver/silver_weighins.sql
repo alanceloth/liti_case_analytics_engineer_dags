@@ -101,7 +101,7 @@ WITH clean_data AS (
         CAST(REPLACE(CAST(rightLegMuscle AS STRING), ',', '') AS DECIMAL) AS rightLegMuscle,
         CAST(REPLACE(CAST(weightStandard AS STRING), ',', '') AS DECIMAL) AS weightStandard,
         CAST(REPLACE(CAST(allBodyMusclekg AS STRING), ',', '') AS DECIMAL) AS allBodyMusclekg,
-                CAST(REPLACE(CAST(kgScaleDivision AS STRING), ',', '') AS DECIMAL) AS kgScaleDivision,
+        CAST(REPLACE(CAST(kgScaleDivision AS STRING), ',', '') AS DECIMAL) AS kgScaleDivision,
         CAST(REPLACE(CAST(lbScaleDivision AS STRING), ',', '') AS DECIMAL) AS lbScaleDivision,
         CAST(REPLACE(CAST(leftArmMusclekg AS STRING), ',', '') AS DECIMAL) AS leftArmMusclekg,
         CAST(REPLACE(CAST(leftLegMusclekg AS STRING), ',', '') AS DECIMAL) AS leftLegMusclekg,
@@ -124,5 +124,5 @@ WITH clean_data AS (
     AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME()
 )
 
-SELECT * FROM clean_data;
+SELECT * FROM clean_data
 
