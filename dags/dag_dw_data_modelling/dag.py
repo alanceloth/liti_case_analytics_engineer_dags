@@ -4,6 +4,8 @@ from cosmos.airflow.task_group import DbtTaskGroup
 from cosmos.config import ProjectConfig, RenderConfig
 from cosmos.constants import LoadMode
 from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateEmptyDatasetOperator
+from airflow.operators.bash_operator import BashOperator
+
 from airflow.models.baseoperator import chain
 
 # Definindo as configurações do dbt
@@ -21,6 +23,13 @@ from dag_dw_data_modelling.dbt_dw.cosmos_config import DBT_PROJECT_CONFIG, DBT_C
 )
 def etl_medallion_architecture():
     bucket_name = 'data-lake-bucket-liti-case-analytics-engineer'
+
+    # Tarefa para rodar dbt deps antes das transformações
+    dbt_deps = BashOperator(
+        task_id='dbt_deps',
+        bash_command=f'cd {DBT_PROJECT_CONFIG["project_dir"]} && dbt deps',
+        retries=3,
+    )
 
     # TaskGroup para a transformação dos dados do GCS para a camada Bronze
     transform_bronze = DbtTaskGroup(
@@ -57,6 +66,7 @@ def etl_medallion_architecture():
 
     # Encadeando as tarefas
     chain(
+        dbt_deps,
         transform_bronze,
         transform_silver,
         transform_gold
