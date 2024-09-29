@@ -38,4 +38,4 @@ SELECT
   w.bmi,
   w.weight_variation
 FROM weighins w
-JOIN customer_dim c ON w.customer_id = c.customer_id;
+JOIN customer_dim c ON w.customer_id = c.customer_id
