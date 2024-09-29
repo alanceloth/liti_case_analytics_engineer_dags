@@ -18,5 +18,3 @@ models:
           min_value: 50
           max_value: 300
 
-      - expression_is_true:
-          expression: "isActive = false OR churnDate IS NULL"
