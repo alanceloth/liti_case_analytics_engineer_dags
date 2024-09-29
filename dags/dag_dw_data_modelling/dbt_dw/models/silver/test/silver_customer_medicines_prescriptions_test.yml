@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: silver_customer_medicines_prescriptions
+    description: "Cleaned and validated customer medicines prescriptions data"
+    tests:
+      # Teste de unicidade e não nulo para o campo customerMedicinesPrescriptionId
+      - unique:
+          column_name: customerMedicinesPrescriptionId
+
+      - not_null:
+          column_name: customerMedicinesPrescriptionId
+
+      # Teste de integridade referencial para customerId
+      - relationships:
+          column_name: customerId
+          to: ref('bronze_customer')
+          field: CustomerId
+
+      # Teste de integridade referencial para medicineId
+      - relationships:
+          column_name: medicineId
+          to: ref('bronze_medicines)
+          field: medicineId
+
+      # Validação de descrições que não podem conter valores como 'N/A', 'XXX', 'sad'
+      - expression_is_true:
+          expression: "description NOT IN ('N/A', 'XXX', 'sad')"
+
+      # Teste de consistência para campos não nulos de createdAt e updatedAt
+      - not_null:
+          column_name: createdAt
+
+      - not_null:
+          column_name: updatedAt
+
+      # Teste de valores permitidos para datas (createdAt e updatedAt não podem estar no futuro)
+      - expression_is_true:
+          expression: "createdAt <= CURRENT_DATETIME()"
+
+      - expression_is_true:
+          expression: "updatedAt <= CURRENT_DATETIME()"

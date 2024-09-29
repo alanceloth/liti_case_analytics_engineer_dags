@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: silver_objectives
+    description: "Cleaned and validated objectives data"
+    tests:
+      # Teste de unicidade e não nulo para o campo objectiveId
+      - unique:
+          column_name: objectiveId
+
+      - not_null:
+          column_name: objectiveId
+
+      # Teste de não nulo para os campos name e description
+      - not_null:
+          column_name: name
+
+      - not_null:
+          column_name: description
+
+      # Teste de valores permitidos para o campo type
+      - accepted_values:
+          column_name: type
+          values: ['WEIGHT_LOSS', 'MUSCLE_GAIN', 'FAT_LOSS', 'CONSISTENCY']
+
+      # Teste de valores permitidos para o campo displayUnit
+      - accepted_values:
+          column_name: displayUnit
+          values: ['kg', '%']

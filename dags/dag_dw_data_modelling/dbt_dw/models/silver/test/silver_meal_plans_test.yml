@@ -1,0 +1,24 @@
+version: 2
+models:
+  - name: silver_meal_plans
+    description: "Cleaned and validated meal plans data"
+    tests:
+      # Teste de unicidade e não nulo para o campo mealPlanId
+      - unique:
+          column_name: mealPlanId
+
+      - not_null:
+          column_name: mealPlanId
+
+      # Teste de não nulo para o campo name
+      - not_null:
+          column_name: name
+
+      # Teste de valores permitidos para o campo group
+      - accepted_values:
+          column_name: group
+          values: ['Padrão', 'Atleta', 'Vegano', 'Vegetariano', 'Hipertrofia']
+
+      # Teste de valores permitidos para createdAt (deve ser uma data válida e não no futuro)
+      - expression_is_true:
+          expression: "createdAt <= CURRENT_DATETIME()"
