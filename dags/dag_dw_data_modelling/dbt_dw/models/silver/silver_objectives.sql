@@ -22,4 +22,4 @@ WITH clean_data AS (
     AND description IS NOT NULL
 )
 
-SELECT * FROM clean_data;
+SELECT * FROM clean_data

@@ -20,4 +20,4 @@ WITH clean_data AS (
     AND createdAt <= CURRENT_DATETIME() 
 )
 
-SELECT * FROM clean_data;
+SELECT * FROM clean_data
