@@ -38,18 +38,19 @@ WITH clean_data AS (
         CAST(REPLACE(CAST(allBodykg AS STRING), ',', '') AS DECIMAL) AS allBodykg,
         CAST(REPLACE(CAST(bodyScore AS STRING), ',', '') AS INTEGER) AS bodyScore,
         CASE
-            WHEN SAFE_CAST(createdAt AS DATETIME) IS NOT NULL
-                AND SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME()
-                AND SAFE_CAST(createdAt AS DATE) >= DATE '2021-05-13'
-            THEN SAFE_CAST(createdAt AS DATETIME)
+        WHEN SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME) IS NOT NULL
+                AND SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME) <= CURRENT_DATETIME()
+                AND SAFE_CAST(TIMESTAMP(createdAt) AS DATE) >= DATE '2021-05-13'
+            THEN SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME)
             ELSE NULL
         END AS createdAt,
         CASE
-            WHEN SAFE_CAST(deletedAt AS DATETIME) IS NOT NULL
-                AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME()
-                AND SAFE_CAST(deletedAt AS DATE) >= DATE '2021-05-13'
-            THEN SAFE_CAST(deletedAt AS DATETIME)
-            ELSE NULL
+        WHEN deletedAt != '' 
+            AND SAFE_CAST(TIMESTAMP(deletedAt) AS DATETIME) IS NOT NULL
+            AND SAFE_CAST(TIMESTAMP(deletedAt) AS DATETIME) <= CURRENT_DATETIME()
+            AND SAFE_CAST(TIMESTAMP(deletedAt) AS DATE) >= DATE '2021-05-13'
+        THEN SAFE_CAST(TIMESTAMP(deletedAt) AS DATETIME)
+        ELSE NULL
         END AS deletedAt,
         electrode AS electrode,
         CAST(REPLACE(CAST(leftArmkg AS STRING), ',', '') AS DECIMAL) AS leftArmkg,
@@ -119,8 +120,8 @@ WITH clean_data AS (
         muscleBalanceRightArmEvaluation AS muscleBalanceRightArmEvaluation,
         muscleBalanceRightLegEvaluation AS muscleBalanceRightLegEvaluation
     FROM {{ ref('bronze_weighins') }}
-    WHERE SAFE_CAST(createdAt AS DATETIME) <= CURRENT_DATETIME()
-    AND SAFE_CAST(deletedAt AS DATETIME) <= CURRENT_DATETIME()
+    WHERE SAFE_CAST(TIMESTAMP(createdAt) AS DATETIME) <= CURRENT_DATETIME()
+    AND SAFE_CAST(TIMESTAMP(deletedAt) AS DATETIME) <= CURRENT_DATETIME()
 )
 
 SELECT * FROM clean_data
