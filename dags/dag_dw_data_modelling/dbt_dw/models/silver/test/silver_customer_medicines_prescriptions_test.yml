@@ -19,7 +19,7 @@ models:
       # Teste de integridade referencial para medicineId
       - relationships:
           column_name: medicineId
-          to: ref('bronze_medicines)
+          to: ref('bronze_medicines')
           field: medicineId
 
       # Validação de descrições que não podem conter valores como 'N/A', 'XXX', 'sad'
