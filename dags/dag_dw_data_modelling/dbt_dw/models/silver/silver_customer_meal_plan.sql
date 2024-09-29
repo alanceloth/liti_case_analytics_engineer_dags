@@ -12,7 +12,7 @@ WITH clean_data AS (
     restrictions_ovolacto AS ovolactoRestriction,
     restrictions_highFodMaps AS highFodMapsRestriction,
     CAST(createdAt AS DATETIME) AS createdAt
-  FROM {{ source('bronze_customer_meal_plan') }}
+  FROM {{ ref('bronze_customer_meal_plan') }}
   WHERE 
     _id IS NOT NULL
     AND customerId IS NOT NULL

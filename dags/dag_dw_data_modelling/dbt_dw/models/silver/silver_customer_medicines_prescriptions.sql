@@ -11,7 +11,7 @@ WITH clean_data AS (
     END AS description,
     CAST(createdAt AS DATETIME) AS createdAt,
     CAST(updatedAt AS DATETIME) AS updatedAt
-  FROM {{ source('bronze_customer_medicines_prescriptions') }}
+  FROM {{ ref('bronze_customer_medicines_prescriptions') }}
   WHERE 
     _id IS NOT NULL
     AND customerId IS NOT NULL

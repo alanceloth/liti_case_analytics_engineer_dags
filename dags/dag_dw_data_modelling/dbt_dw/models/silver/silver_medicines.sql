@@ -21,7 +21,7 @@ WITH clean_data AS (
       WHEN dosages_7_ = 'N/A' THEN NULL ELSE dosages_7_ END AS dosage_7,
     label,
     CAST(deletedAt AS DATETIME) AS deletedAt
-  FROM {{ source('bronze_medicines') }}
+  FROM {{ ref('bronze_medicines') }}
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL

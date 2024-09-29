@@ -24,7 +24,7 @@ WITH clean_data AS (
     customerNutritionist,
     customerBesci,
     CAST(customerCreatedAt AS DATETIME) AS customerCreatedAt 
-  FROM {{ source('bronze_customer') }}
+  FROM {{ ref('bronze_customer') }}
   WHERE CustomerId IS NOT NULL
 )
 

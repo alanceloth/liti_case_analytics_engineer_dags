@@ -15,7 +15,7 @@ WITH clean_data AS (
       WHEN type IN ('WEIGHT_LOSS', 'MUSCLE_GAIN', 'FAT_LOSS', 'CONSISTENCY') THEN type 
       ELSE NULL 
     END AS type
-  FROM {{ source('bronze_objectives') }}
+  FROM {{ ref('bronze_objectives') }}
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL

@@ -7,7 +7,7 @@ WITH clean_data AS (
       ELSE NULL 
     END AS group,
     CAST(createdAt AS DATETIME) AS createdAt
-  FROM {{ source('bronze_meal_plans') }}
+  FROM {{ ref('bronze_meal_plans') }}
   WHERE 
     _id IS NOT NULL
     AND name IS NOT NULL
