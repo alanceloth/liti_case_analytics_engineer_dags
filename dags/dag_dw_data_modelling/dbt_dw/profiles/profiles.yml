@@ -6,7 +6,7 @@ gcp_bigquery:
     method: service-account
     keyfile: /usr/local/airflow/include/gcp/service_account.json
     project: 'liti-case-analytics-engineer'
-    dataset: retail
+    dataset: data_warehouse
     threads: 1
     timeout_seconds: 300
-    location: US
+    location: us-west1

@@ -7,7 +7,7 @@ from airflow.providers.google.cloud.operators.bigquery import BigQueryCreateEmpt
 from airflow.models.baseoperator import chain
 
 # Definindo as configurações do dbt
-from include.dbt.cosmos_config import DBT_PROJECT_CONFIG, DBT_CONFIG
+from dag_dw_data_modelling.dbt_dw.cosmos_config import DBT_PROJECT_CONFIG, DBT_CONFIG
 
 # Definindo a DAG com o decorador @dag
 @dag(
@@ -18,13 +18,6 @@ from include.dbt.cosmos_config import DBT_PROJECT_CONFIG, DBT_CONFIG
 )
 def etl_medallion_architecture():
     bucket_name = 'data-lake-bucket-liti-case-analytics-engineer'
-
-    # # Criar o dataset no BigQuery
-    # create_dataset = BigQueryCreateEmptyDatasetOperator(
-    #     task_id='create_dataset',
-    #     dataset_id='etl_medallion',
-    #     gcp_conn_id='gcp',
-    # )
 
     # TaskGroup para a transformação dos dados do GCS para a camada Bronze
     transform_bronze = DbtTaskGroup(
@@ -61,7 +54,6 @@ def etl_medallion_architecture():
 
     # Encadeando as tarefas
     chain(
-        # create_dataset,
         transform_bronze,
         transform_silver,
         transform_gold

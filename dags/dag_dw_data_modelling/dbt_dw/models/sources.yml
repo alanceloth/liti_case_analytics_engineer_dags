@@ -4,49 +4,19 @@ sources:
   - name: raw_data
     schema: data_warehouse  # Dataset onde os dados serão processados
     tables:
-      - name: raw_customer
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_customer/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_customer_meal_plan
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_customer_meal_plan/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_customer_medicines_prescriptions
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_customer_medicines_prescriptions/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_customer_objectives
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_customer_objectives/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_meal_plans
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_meal_plans/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_medicines
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_medicines/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_objectives
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/tb_objectives/"
-          format: csv
-          options:
-            skip_leading_rows: 1
-      - name: raw_weighins
-        external:
-          location: "gs://data-lake-bucket-liti-case-analytics-engineer/raw/json_weighins/"
-          format: json        
+      - name: raw_tb_customer
+       
+      - name: raw_tb_customer_meal_plan
+        
+      - name: raw_tb_customer_medicines_prescriptions
+        
+      - name: raw_tb_customer_objectives
+        
+      - name: raw_tb_meal_plans
+        
+      - name: raw_tb_medicines
+        
+      - name: raw_tb_objectives
+       
+      - name: raw_tb_weighins
+       
